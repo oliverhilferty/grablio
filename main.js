@@ -45,7 +45,8 @@ request({
         let imgSrc = img.attr('src');
         let imgPath = url.resolve(args.url, imgSrc);
         let splitPath = imgPath.split('/');
-        let filePath = path.join((args.destination || defaultPath), splitPath[splitPath.length - 1]);
+        let destination = args.destination || defaultPath;
+        let filePath = path.join(destination, splitPath[splitPath.length - 1]);
 
         console.log(imgPath, filePath);
 
