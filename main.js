@@ -7,8 +7,7 @@ let parser = new ArgumentParser({
 parser.addArgument(
     ["url"],
     {
-        help: "URL to pull images from",
-        name: "test"
+        help: "URL to pull images from"
     }
 );
 parser.addArgument(
