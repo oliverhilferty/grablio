@@ -1,0 +1,22 @@
+{
+  "name": "grablio",
+  "version": "1.0.0",
+  "description": "A command line tool for grabbing images from a URL",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliverhilferty/grablio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliverhilferty/grablio/issues"
+  },
+  "homepage": "https://github.com/oliverhilferty/grablio#readme",
+  "dependencies": {
+    "argparse": "^1.0.10"
+  }
+}
