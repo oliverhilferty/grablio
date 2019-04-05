@@ -5,10 +5,19 @@ let parser = new ArgumentParser({
 });
 
 parser.addArgument(
-    ["--url"],
+    ["url"],
     {
-        help: "URL to pull images from"
+        help: "URL to pull images from",
+        name: "test"
+    }
+);
+parser.addArgument(
+    ["-d", "--destination"],
+    {
+        help: "folder to save the images to"
     }
 );
 
 let args = parser.parseArgs();
+
+console.log(args);
