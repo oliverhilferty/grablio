@@ -13,7 +13,7 @@ let parser = new ArgumentParser({
 parser.addArgument(
     ["url"],
     {
-        help: "URL to pull images from"
+        help: "URL to grab images from"
     }
 );
 parser.addArgument(
@@ -25,7 +25,8 @@ parser.addArgument(
 parser.addArgument(
     ["-t",  "--test"],
     {
-        help: "find images without downloading them"
+        help: "find images without downloading them",
+        action: 'storeTrue'
     }
 );
 
