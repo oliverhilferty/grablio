@@ -49,5 +49,3 @@ request({
 let download = (uri, filePath) => {
     request(uri).pipe(fs.createWriteStream(filePath));
 };
-
-console.log(args);
