@@ -10,6 +10,8 @@ let parser = new ArgumentParser({
     addHelp: true
 });
 
+const defaultPath = "./";
+
 parser.addArgument(
     ["url"],
     {
@@ -19,7 +21,7 @@ parser.addArgument(
 parser.addArgument(
     ["-d", "--destination"],
     {
-        help: "folder to save the images to (default is '.')"
+        help: `folder to save the images to (default is '${defaultPath}')`
     }
 );
 parser.addArgument(
@@ -31,8 +33,6 @@ parser.addArgument(
 );
 
 let args = parser.parseArgs();
-
-const defaultPath = "./";
 
 request({
     uri: args.url,
