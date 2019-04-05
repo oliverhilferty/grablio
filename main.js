@@ -22,6 +22,12 @@ parser.addArgument(
         help: "folder to save the images to (default is '.')"
     }
 );
+parser.addArgument(
+    ["-t",  "--test"],
+    {
+        help: "find images without downloading them"
+    }
+);
 
 let args = parser.parseArgs();
 
@@ -41,8 +47,12 @@ request({
 
         console.log(imgPath, filePath);
 
-        download(imgPath, filePath);
+        if (!args.test) {
+            download(imgPath, filePath);
+        }
     });
+
+    console.log(chalk.green('Finished!'));
 });
 
 
