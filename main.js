@@ -31,6 +31,8 @@ parser.addArgument(
 
 let args = parser.parseArgs();
 
+const defaultPath = "./";
+
 request({
     uri: args.url,
 }, function(error, response, body) {
@@ -43,7 +45,7 @@ request({
         let imgSrc = img.attr('src');
         let imgPath = url.resolve(args.url, imgSrc);
         let splitPath = imgPath.split('/');
-        let filePath = path.join((args.destination || './'), splitPath[splitPath.length - 1]);
+        let filePath = path.join((args.destination || defaultPath), splitPath[splitPath.length - 1]);
 
         console.log(imgPath, filePath);
 
