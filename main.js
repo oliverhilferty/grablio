@@ -9,7 +9,7 @@ const fs = require('fs');
 
 const defaults = {
     destination: "./",
-    element: "img",
+    selector: "img",
     attr: "src"
 };
 
@@ -56,6 +56,18 @@ parser.addArgument(
     ["-d", "--destination"],
     {
         help: `folder to save the images to (default is '${defaults.destination}')`
+    }
+);
+parser.addArgument(
+    ["-s", "--selector"],
+    {
+        help: `CSS selector to get from the page (default is ${defaults.selector})`
+    }
+);
+parser.addArgument(
+    ["-a", "--attr"],
+    {
+        help: `the attribute to get from the selected elements (default is ${defaults.attr})`
     }
 );
 parser.addArgument(
