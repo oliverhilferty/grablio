@@ -37,33 +37,25 @@ let args = parser.parseArgs();
 
 const destination = args.destination || defaultPath;
 
-try {
-    let dir = fs.readdirSync(destination);
-    console.log(dir);
-} catch (e) {
-    if (e.code === 'ENOENT') {
-        console.log();
-        confirmCreatePrompt = `${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `;
-        let confirmCreate = readlineSync.question(confirmCreatePrompt);
-        let regexYes= /^(yes)$|^y$/i;
-        if (regexYes.test(confirmCreate)) {
-            try {
-                fs.mkdirSync(destination, {
-                    recursive: true
-                });
-            } catch (e) {
-                if (e.code === "ENOENT") {
-                    console.log(chalk.red("Couldn't create directory. You may need to update your version of node.js"));
-                    process.exit();
-                } else {
-                    throw e;
-                }
+if (!fs.existsSync(destination)) {
+    confirmCreatePrompt = `${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `;
+    let confirmCreate = readlineSync.question(confirmCreatePrompt);
+    let regexYes= /^(yes)$|^y$/i;
+    if (regexYes.test(confirmCreate)) {
+        try {
+            fs.mkdirSync(destination, {
+                recursive: true
+            });
+        } catch (e) {
+            if (e.code === "ENOENT") {
+                console.log(chalk.red("Couldn't create directory. You may need to update your version of node.js"));
+                process.exit();
+            } else {
+                throw e;
             }
-        } else {
-            process.exit();
         }
     } else {
-        throw e;
+        process.exit();
     }
 }
 
