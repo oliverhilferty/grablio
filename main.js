@@ -83,7 +83,6 @@ request({
     console.log(chalk.green('Finished!'));
 });
 
-
 let download = (uri, filePath) => {
     request(uri).pipe(fs.createWriteStream(filePath));
 };
