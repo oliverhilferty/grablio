@@ -14,6 +14,15 @@ const defaults = {
 };
 
 /**
+ * downloads a file from a given uri to a given file path
+ * @param uri {String}
+ * @param filePath {String}
+ */
+let download = (uri, filePath) => {
+    request(uri).pipe(fs.createWriteStream(filePath));
+};
+
+/**
  * Acts like Object.assign, but will not overwrite values in target with falsey values from source or mutate target
  * or source objects
  * @param target {Object}
@@ -105,7 +114,3 @@ request({
 
     console.log(chalk.green("Finished!"));
 });
-
-let download = (uri, filePath) => {
-    request(uri).pipe(fs.createWriteStream(filePath));
-};
