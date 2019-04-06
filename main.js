@@ -7,11 +7,35 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 
+const defaults = {
+    destination: "./",
+    element: "img",
+    attr: "src"
+};
+
+/**
+ * Acts like Object.assign, but will not overwrite values in target with falsey values from source or mutate target
+ * or source objects
+ * @param target {Object}
+ * @param source {Object}
+ * @returns {Object}
+ */
+const argMerge = (target, source) => {
+    // source value overwrites target value but only if source value is truthy
+    let out = target;
+    for (let property in source) {
+        if (source.hasOwnProperty(property)) {
+            if (source[property]) {
+                out[property] = source[property];
+            }
+        }
+    }
+    return out;
+};
+
 let parser = new ArgumentParser({
     addHelp: true
 });
-
-const defaultPath = "./";
 
 parser.addArgument(
     ["url"],
@@ -22,7 +46,7 @@ parser.addArgument(
 parser.addArgument(
     ["-d", "--destination"],
     {
-        help: `folder to save the images to (default is '${defaultPath}')`
+        help: `folder to save the images to (default is '${defaults.destination}')`
     }
 );
 parser.addArgument(
@@ -34,16 +58,15 @@ parser.addArgument(
 );
 
 let args = parser.parseArgs();
+args = argMerge(defaults, args);
 
-const destination = args.destination || defaultPath;
-
-if (!fs.existsSync(destination)) {
-    confirmCreatePrompt = `${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `;
+if (!fs.existsSync(args.destination)) {
+    confirmCreatePrompt = `${chalk.red(`Directory '${args.destination}' does not exist. Do you want to create it?`)}\n> `;
     let confirmCreate = readlineSync.question(confirmCreatePrompt);
     let regexYes= /^(yes)$|^y$/i;
     if (regexYes.test(confirmCreate)) {
         try {
-            fs.mkdirSync(destination, {
+            fs.mkdirSync(args.destination, {
                 recursive: true
             });
         } catch (e) {
@@ -64,14 +87,14 @@ request({
 }, function(error, response, body) {
     let $ = cheerio.load(body);
 
-    let imgs = $('img');
+    let imgs = $("img");
 
     imgs.each(function() {
         let img = $(this);
-        let imgSrc = img.attr('src');
+        let imgSrc = img.attr("src");
         let imgPath = url.resolve(args.url, imgSrc);
-        let splitPath = imgPath.split('/');
-        let filePath = path.join(destination, splitPath[splitPath.length - 1]);
+        let splitPath = imgPath.split("/");
+        let filePath = path.join(args.destination, splitPath[splitPath.length - 1]);
 
         console.log(imgPath, filePath);
 
@@ -80,7 +103,7 @@ request({
         }
     });
 
-    console.log(chalk.green('Finished!'));
+    console.log(chalk.green("Finished!"));
 });
 
 let download = (uri, filePath) => {
