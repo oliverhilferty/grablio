@@ -1,10 +1,11 @@
-let ArgumentParser = require('argparse').ArgumentParser;
-let request = require('request');
-let cheerio = require('cheerio');
-let chalk = require('chalk');
-let path = require('path');
-let url = require('url');
-let fs = require('fs');
+const ArgumentParser = require('argparse').ArgumentParser;
+const readlineSync = require('readline-sync');
+const request = require('request');
+const cheerio = require('cheerio');
+const chalk = require('chalk');
+const path = require('path');
+const url = require('url');
+const fs = require('fs');
 
 let parser = new ArgumentParser({
     addHelp: true
@@ -34,6 +35,26 @@ parser.addArgument(
 
 let args = parser.parseArgs();
 
+const destination = args.destination || defaultPath;
+
+try {
+    let dir = fs.readdirSync(destination);
+    console.log(dir);
+} catch (e) {
+    if (e.code === 'ENOENT') {
+        console.log();
+        let confirmCreate = readlineSync.question(`${chalk.red(`'${destination}' does not exist. Do you want to create it?`)}\n> `);
+        let regexYes= /^(yes)$|^y$/i;
+        if (regexYes.test(confirmCreate)) {
+            fs.mkdirSync(destination);
+        } else {
+            //    exit program
+        }
+    } else {
+        throw e;
+    }
+}
+
 request({
     uri: args.url,
 }, function(error, response, body) {
@@ -46,7 +67,6 @@ request({
         let imgSrc = img.attr('src');
         let imgPath = url.resolve(args.url, imgSrc);
         let splitPath = imgPath.split('/');
-        let destination = args.destination || defaultPath;
         let filePath = path.join(destination, splitPath[splitPath.length - 1]);
 
         console.log(imgPath, filePath);
