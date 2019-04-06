@@ -48,7 +48,7 @@ try {
         if (regexYes.test(confirmCreate)) {
             fs.mkdirSync(destination);
         } else {
-            //    exit program
+            process.exit();
         }
     } else {
         throw e;
