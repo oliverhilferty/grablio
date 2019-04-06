@@ -43,10 +43,22 @@ try {
 } catch (e) {
     if (e.code === 'ENOENT') {
         console.log();
-        let confirmCreate = readlineSync.question(`${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `);
+        confirmCreatePrompt = `${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `;
+        let confirmCreate = readlineSync.question(confirmCreatePrompt);
         let regexYes= /^(yes)$|^y$/i;
         if (regexYes.test(confirmCreate)) {
-            fs.mkdirSync(destination);
+            try {
+                fs.mkdirSync(destination, {
+                    recursive: true
+                });
+            } catch (e) {
+                if (e.code === "ENOENT") {
+                    console.log(chalk.red("Couldn't create directory. You may need to update your version of node.js"));
+                    process.exit();
+                } else {
+                    throw e;
+                }
+            }
         } else {
             process.exit();
         }
