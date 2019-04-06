@@ -43,7 +43,7 @@ try {
 } catch (e) {
     if (e.code === 'ENOENT') {
         console.log();
-        let confirmCreate = readlineSync.question(`${chalk.red(`'${destination}' does not exist. Do you want to create it?`)}\n> `);
+        let confirmCreate = readlineSync.question(`${chalk.red(`Directory '${destination}' does not exist. Do you want to create it?`)}\n> `);
         let regexYes= /^(yes)$|^y$/i;
         if (regexYes.test(confirmCreate)) {
             fs.mkdirSync(destination);
