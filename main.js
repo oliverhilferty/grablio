@@ -113,6 +113,11 @@ request({
     els.each(function() {
         let el = $(this);
         let imgLocation = el.attr(args.attr);
+        if (!imgLocation) {
+            // if image location could not be found, skip to the next iteration of the each loop
+            // (Cheerio (aka jQuery) each loops skip to the next iteration if true is returned)
+            return true;
+        }
         let imgPath = url.resolve(args.url, imgLocation);
         let splitPath = imgPath.split("/");
         let fileName = splitPath[splitPath.length - 1];
