@@ -13,11 +13,6 @@ const defaults = {
     attr: "src"
 };
 
-const isAbsolute = (url) => {
-    let urlPattern = /^https?:\/\//i;
-    return urlPattern.test(url);
-};
-
 const isFile = (url) => {
     return url.split("/").pop().indexOf(".") > -1;
 };
