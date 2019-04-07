@@ -18,6 +18,10 @@ const isAbsolute = (url) => {
     return urlPattern.test(url);
 };
 
+const isFile = (url) => {
+    return url.split("/").pop().indexOf(".") > -1;
+};
+
 /**
  * downloads a file from a given uri to a given file path
  * @param uri {String}
