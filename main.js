@@ -13,6 +13,11 @@ const defaults = {
     attr: "src"
 };
 
+const isAbsolute = (url) => {
+    let urlPattern = /^https?:\/\//i;
+    return urlPattern.test(url);
+};
+
 /**
  * downloads a file from a given uri to a given file path
  * @param uri {String}
