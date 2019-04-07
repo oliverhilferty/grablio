@@ -1,6 +1,12 @@
 # grablio
 A command line tool for grabbing images from a URL
 
+## Set-up
+1) Install node: https://nodejs.org/en/
+2) `git clone https://github.com/oliverhilferty/grablio.git`
+3) `cd grablio`
+4) `npm install`
+
 ## Usage
 ```$xslt
 usage: main.js [-h] [-d DESTINATION] [-s SELECTOR] [-a ATTR] [-t] url
