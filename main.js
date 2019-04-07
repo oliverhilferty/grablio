@@ -30,10 +30,10 @@ let download = (uri, filePath) => {
  * @returns {Object}
  */
 const argMerge = (target, source) => {
-    // source value overwrites target value but only if source value is truthy
     let out = target;
     for (let property in source) {
         if (source.hasOwnProperty(property)) {
+            // source value overwrites target value but only if source value is truthy
             if (source[property]) {
                 out[property] = source[property];
             }
