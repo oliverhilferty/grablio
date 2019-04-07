@@ -108,11 +108,11 @@ request({
 }, function(error, response, body) {
     let $ = cheerio.load(body);
 
-    let els = $("img");
+    let els = $(args.selector);
 
     els.each(function() {
         let el = $(this);
-        let imgLocation = el.attr("src");
+        let imgLocation = el.attr(args.attr);
         let imgPath = url.resolve(args.url, imgLocation);
         let splitPath = imgPath.split("/");
         let fileName = splitPath[splitPath.length - 1];
