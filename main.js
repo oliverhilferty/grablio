@@ -128,6 +128,10 @@ request({
             return true;
         }
         let imgPath = url.resolve(args.url, imgLocation);
+        if (!isFile(imgPath)) {
+            // go to next iteration if imgPath does not point to a file
+            return true;
+        }
         let fileName = imgPath.split("/").pop();
         let filePath = path.join(args.destination, fileName);
 
