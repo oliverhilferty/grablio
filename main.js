@@ -13,14 +13,19 @@ const defaults = {
     attr: "src"
 };
 
+/**
+ * checks if a given url points to a file (rather than a folder)
+ * @param url {string}
+ * @returns {boolean}
+ */
 const isFile = (url) => {
     return url.split("/").pop().indexOf(".") > -1;
 };
 
 /**
  * downloads a file from a given uri to a given file path
- * @param uri {String}
- * @param filePath {String}
+ * @param uri {string}
+ * @param filePath {string}
  */
 let download = (uri, filePath) => {
     request(uri).pipe(fs.createWriteStream(filePath));
