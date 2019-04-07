@@ -124,8 +124,7 @@ request({
             return true;
         }
         let imgPath = url.resolve(args.url, imgLocation);
-        let splitPath = imgPath.split("/");
-        let fileName = splitPath[splitPath.length - 1];
+        let fileName = imgPath.split("/").pop();
         let filePath = path.join(args.destination, fileName);
 
         console.log(imgPath, filePath);
