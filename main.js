@@ -138,7 +138,12 @@ request({
         console.log(imgPath, filePath);
 
         if (!args.test) {
-            download(imgPath, filePath);
+            try {
+                download(imgPath, filePath);
+            } catch (e) {
+                console.log(chalk.red(`Failed to download ${imgPath}`));
+            }
+
         }
     });
 
