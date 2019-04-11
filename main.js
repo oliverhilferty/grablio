@@ -54,7 +54,8 @@ const argMerge = (target, source) => {
 };
 
 let parser = new ArgumentParser({
-    addHelp: true
+    addHelp: true,
+    prog: 'grablio'
 });
 
 parser.addArgument(
