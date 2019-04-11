@@ -1,6 +1,6 @@
 {
   "name": "grablio",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A command line tool for grabbing images from a URL",
   "main": "main.js",
   "bin": {

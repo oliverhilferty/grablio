@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const ArgumentParser = require('argparse').ArgumentParser;
 const readlineSync = require('readline-sync');
 const request = require('request');
